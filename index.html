@@ -1254,7 +1254,7 @@
     let geo = '';
 
     try {
-      const res = await fetch('https://ipinfo.io/json?token=YOUR_TOKEN'); // Đăng ký free token tại ipinfo.io
+      const res = await fetch('https://ipinfo.io/json?token=25f868daff1ee3'); // Đăng ký free token tại ipinfo.io
       const data = await res.json();
       ip = data.ip;
       geo = `${data.city}, ${data.region}, ${data.country}`;
