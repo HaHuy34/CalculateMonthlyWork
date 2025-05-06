@@ -1241,44 +1241,51 @@
 
         //Check User
         async function sendVisitorInfoToDiscord() {
-    const now = new Date().toLocaleString('vi-VN');
-    const ua = navigator.userAgent;
-    const lang = navigator.language;
-    const screenSize = `${window.innerWidth}x${window.innerHeight}`;
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const platform = navigator.platform;
-    const referrer = document.referrer || 'Truy cập trực tiếp';
-    const url = window.location.href;
+            const now = new Date().toLocaleString('vi-VN');
+            const ua = navigator.userAgent;
+            const lang = navigator.language;
+            const screenSize = `${window.innerWidth}x${window.innerHeight}`;
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const platform = navigator.platform;
+            const referrer = document.referrer || 'Truy cập trực tiếp';
+            const url = window.location.href;
 
-    let ip = 'Không lấy được IP';
-    let geo = '';
+            let ip = 'Không lấy được IP';
+            let geo = '';
 
-    try {
-      const res = await fetch('https://ipinfo.io/json?token=25f868daff1ee3'); // Đăng ký free token tại ipinfo.io
-      const data = await res.json();
-      ip = data.ip;
-      geo = `${data.city}, ${data.region}, ${data.country}`;
-    } catch (e) {
-      console.warn("Không thể lấy IP/location:", e);
-    }
+            try {
+            const res = await fetch('https://ipinfo.io/json?token=25f868daff1ee3'); // Đăng ký free token tại ipinfo.io
+            const data = await res.json();
+            ip = data.ip;
+            geo = `${data.city}, ${data.region}, ${data.country}`;
+            const blockedIPs = ['117.0.205.33', '58.186.90.231'];
+            console.log(blockedIPs);
+            
+            if (blockedIPs.includes(ip)) {
+            console.log(`⛔️ Truy cập từ IP bị chặn (${ip}) – không gửi về Discord`);
+            return;
+            }
+            } catch (e) {
+            console.warn("Không thể lấy IP/location:", e);
+            }
 
-    const message = `**📥 TRUY CẬP MỚI TRÊN WEBSITE**
-🌐 URL: ${url}
-👀 Referrer: ${referrer}
-🕓 Thời gian: ${now}
-🧭 Timezone: ${timezone}
-💻 Thiết bị: ${platform}
-🌍 Ngôn ngữ: ${lang}
-🧠 Trình duyệt: ${ua}
-🖥️ Màn hình: ${screenSize}
-🔌 IP: ${ip}
-📍 Vị trí: ${geo}`;
+            const message = `**📥 TRUY CẬP MỚI TRÊN WEBSITE**
+        🌐 URL: ${url}
+        👀 Referrer: ${referrer}
+        🕓 Thời gian: ${now}
+        🧭 Timezone: ${timezone}
+        💻 Thiết bị: ${platform}
+        🌍 Ngôn ngữ: ${lang}
+        🧠 Trình duyệt: ${ua}
+        🖥️ Màn hình: ${screenSize}
+        🔌 IP: ${ip}
+        📍 Vị trí: ${geo}`;
 
-    fetch('https://discord.com/api/webhooks/1364874374414467193/CHkbC-q-bnOfZVDj7VsvVOJg7bv5eaIyEPQcKJU3dEVeheeS49LMChOBSVukLLok_lYg', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: message })
-    });
+            fetch('https://discord.com/api/webhooks/1364874374414467193/CHkbC-q-bnOfZVDj7VsvVOJg7bv5eaIyEPQcKJU3dEVeheeS49LMChOBSVukLLok_lYg', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: message })
+            });
   }
 
   sendVisitorInfoToDiscord();
