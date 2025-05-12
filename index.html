@@ -2,1018 +2,1460 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./facetion.jpg" type="image/x-icon">
-    <title>Tính lương + Chia công</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./facetion.jpg" type="image/x-icon">
+  <title>Tính lương + Chia công</title>
 
-    <!-- DaisyUI + Tailwind -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+  <!-- DaisyUI + Tailwind -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
 
-    <!-- Flatpickr -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- Flatpickr -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-        :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #10b981;
-            --accent-color: #f472b6;
-            --bg-color: #f8fafc;
-            --card-color: #ffffff;
-            --text-color: #1e293b;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+    :root {
+      --primary-color: #4f46e5;
+      --secondary-color: #10b981;
+      --accent-color: #f472b6;
+      --bg-color: #f8fafc;
+      --card-color: #ffffff;
+      --text-color: #1e293b;
+      --border-color: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: "Montserrat", sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 0;
-            margin: 0;
-            overflow-x: hidden;
-            height: 100%;
-        }
+    body {
+      font-family: "Montserrat", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      overflow-y: auto;
+      height: 100%;
+    }
 
-
-        .parents {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(1, 1fr);
-            gap: 8px;
-        }
-
-        ::placeholder {
-            color: #0c0f0e;
-        }
+    body::-webkit-scrollbar {
+      width: 0px !important;
+    }
 
 
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    .tab-container {
+      display: flex;
+      background: #e5e7eb;
+      border-radius: 9999px;
+      padding: 4px;
+      margin-bottom: 20px;
+      position: relative;
+      width: fit-content;
+    }
 
-        .app-header {
-            text-align: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            border-radius: 0 0 2rem 2rem;
-            box-shadow: var(--shadow);
-        }
+    .btn-ano-rev {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .header-title {
-            font-size: 2rem;
-            font-weight: 700;
-        }
+    .tab-button {
+      border: none;
+      background: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 500;
+      color: black;
+      font-size: 14px;
+      z-index: 2;
+    }
 
-        .header-subtitle {
-            font-size: 2rem;
-            opacity: 0.9;
-            font-weight: 700;
-            display: none;
-        }
+    .tab-button.active {
+      background: black;
+      color: white;
+      border-radius: 9999px;
+    }
 
-        /* .card-grid {
+    .tab-wrapper {
+      position: relative;
+    }
+
+    .tab-panel {
+      position: absolute;
+      width: 100%;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+
+    .tab-panel.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .bg-green {
+      background: #d1fae5;
+    }
+
+    .bg-yellow {
+      background: #fef9c3;
+    }
+
+
+    .parents {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(1, 1fr);
+      gap: 8px;
+    }
+
+    ::placeholder {
+      color: #0c0f0e;
+    }
+
+
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .app-header {
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      color: white;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .header-title {
+      font-size: 2rem;
+      font-weight: 700;
+      position: relative;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .header-subtitle {
+      font-size: 2rem;
+      opacity: 0.9;
+      font-weight: 700;
+      display: none;
+    }
+
+    /* .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-bottom: 3rem;
     } */
 
-        .card {
-            background-color: var(--card-color);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-icon {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-        }
-
-        .card-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 0.5rem;
-            color: var(--text-color);
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 3rem 0 1.5rem;
-            text-align: center;
-            color: var(--primary-color);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 2px;
-        }
-
-        .input-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        i.fas.fa-pen-to-square {
-            color: red;
-        }
-
-        .input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border-color);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .empty-ot-state span {
-            color: red;
-            font-style: italic;
-
-        }
-
-        .input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-        }
-
-        .range-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .range-value {
-            font-size: 29px;
-            font-weight: 600;
-            text-align: center;
-            margin-top: 0.5rem;
-            color: red;
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            border-radius: 4px;
-            background: #4f46e5;
-            outline: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 1px solid #4f46e5;
-            background: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-
-        .custumn_ot {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            background-color: rgba(79, 70, 229, 0.1);
-            color: var(--primary-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            margin: 0.25rem;
-            font-weight: 500;
-        }
-
-        .tag-remove {
-            margin-left: 0.5rem;
-            font-size: 1rem;
-            color: #ef4444;
-            cursor: pointer;
-        }
-
-        .tag-remove:hover {
-            color: #b91c1c;
-        }
-
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-            max-height: 100px;
-            overflow: auto;
-        }
-
-        .table-container {
-            max-height: 200px;
-            overflow-y: auto;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border-color);
-            margin-top: 1rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.875rem;
-        }
-
-        #vanta-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        th,
-        td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: #f8fafc;
-            font-weight: 600;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-
-        .results-container {
-            background-color: var(--card-color);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            margin-top: 2rem;
-            position: sticky;
-            display: flex;
-            align-items: start;
-            gap: 20px;
-            justify-content: space-between;
-        }
-
-        .text-right.text-lg.font-semibold.text-success {
-            font-size: 16px;
-            color: #4f46e5;
-        }
-
-        .result-item {
-            background-color: rgba(79, 70, 229, 0.1);
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .result-total {
-            font-weight: 600;
-            margin-top: 1rem;
-            color: var(--primary-color);
-            text-align: center;
-            font-size: 16px;
-        }
-
-        .animated-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.05;
-        }
-
-        .result-item.flex.items-center.justify-between {
-            cursor: pointer;
-            transition: all .3s;
-        }
-
-        .result-item.flex.items-center.justify-between:hover {
-            scale: 1.05;
-            transition: all .3s;
-        }
-
-        @media (max-width: 768px) {
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            .app-header {
-                border-radius: 0 0 1rem 1rem;
-                padding: 1.5rem 0;
-            }
-
-            .header-title {
-                font-size: 1.5rem;
-            }
-
-            * Styles cho card OT cải tiến */ .ot-card {
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-            }
-
-            .ot-table-wrapper {
-
-                flex: 1;
-                min-height: 100px;
-                max-height: 180px;
-                overflow-y: auto;
-                border-radius: 0.5rem;
-                border: 1px solid var(--border-color);
-                background-color: white;
-                scrollbar-width: thin;
-                scrollbar-color: var(--primary-color) #f0f0f0;
-            }
-
-            .ot-table-wrapper::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            .ot-table-wrapper::-webkit-scrollbar-track {
-                background: #f0f0f0;
-                border-radius: 3px;
-            }
-
-            .ot-table-wrapper::-webkit-scrollbar-thumb {
-                background-color: var(--primary-color);
-                border-radius: 3px;
-            }
-
-            .ot-table {
-                width: 100%;
-                border-collapse: collapse;
-                font-size: 0.875rem;
-            }
-
-            .ot-table th,
-            .ot-table td {
-                padding: 0.75rem 1rem;
-                text-align: left;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            .ot-table th {
-                background-color: #f8fafc;
-                font-weight: 600;
-                position: sticky;
-                top: 0;
-                z-index: 10;
-                box-shadow: 0 1px 0 var(--border-color);
-            }
-
-            .ot-table tr:last-child td {
-                border-bottom: none;
-            }
-
-            .ot-table tr:nth-child(even) {
-                background-color: #f8fafc;
-            }
-
-            .ot-table tr:hover {
-                background-color: rgba(79, 70, 229, 0.05);
-            }
-
-            #otSummary {
-                display: flex;
-                justify-content: space-between;
-                padding: 0.5rem 0;
-                font-size: 0.85rem;
-            }
-
-            .empty-ot-state i {
-                font-size: 1.5rem;
-                margin-bottom: 0.5rem;
-            }
-        }
-
-        /* Utility classes */
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-
-        .mt-4 {
-            margin-top: 1rem;
-        }
-
-        .mb-2 {
-            margin-bottom: 0.5rem;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .flex-col {
-            flex-direction: column;
-        }
-
-        .items-center {
-            align-items: center;
-        }
-
-        .justify-between {
-            justify-content: space-between;
-        }
-
-        .gap-2 {
-            gap: 0.5rem;
-        }
-
-        .text-accent {
-            color: var(--primary-color);
-        }
-
-        .text-primary {
-            color: var(--primary-color);
-        }
-
-        .text-success {
-            color: var(--secondary-color);
-        }
-
-        .text-xl {
-            font-size: 1.25rem;
-        }
-
-        .font-bold {
-            font-weight: 700;
-        }
-
-        .parent {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
-            background-color: #000000,
-        }
-
-
-
-        .div4 {
-            grid-column: span 2 / span 2;
-            grid-row: span 2 / span 2;
-            grid-column-start: 1;
-            grid-row-start: 2;
-        }
-
-        .div7 {
-            grid-column-start: 3;
-            grid-row-start: 1;
-        }
-
-        div.cart-ano-cacu,
-        div.cart-review-cacu,
-        div.cart-ano-review-cacu {
-            width: 90%;
-        }
-
-        .div8 {
-            grid-column-start: 3;
-            grid-row-start: 2;
-        }
-
-        .div9 {
-            grid-column-start: 3;
-            grid-row-start: 3;
-        }
-
-        .div10 {
-            grid-column-start: 4;
-            grid-row-start: 1;
-        }
-
-        .div11 {
-            grid-column-start: 4;
-            grid-row-start: 2;
-        }
-
-        .div12 {
-            grid-column-start: 4;
-            grid-row-start: 3;
-        }
-
-        .flatpickr-input[readonly] {
-            margin-bottom: 10px;
-        }
-
-        div#otSummary {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        footer {
-            /* bottom: 0;
+    .card {
+      background-color: var(--card-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-icon {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+
+    .card-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem;
+      text-align: center;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+
+    .input-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    i.fas.fa-pen-to-square {
+      color: red;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .empty-ot-state span {
+      color: red;
+      font-style: italic;
+
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+
+    .range-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .range-value {
+      font-size: 29px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 0.5rem;
+      color: red;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #4f46e5;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #4f46e5;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .custumn_ot {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      background-color: rgba(79, 70, 229, 0.1);
+      color: var(--primary-color);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      margin: 0.25rem;
+      font-weight: 500;
+    }
+
+    .tag-remove {
+      margin-left: 0.5rem;
+      font-size: 1rem;
+      color: #ef4444;
+      cursor: pointer;
+    }
+
+    .tag-remove:hover {
+      color: #b91c1c;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      max-height: 100px;
+      overflow: auto;
+    }
+
+    .table-container {
+      max-height: 200px;
+      overflow-y: auto;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    #vanta-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+
+      10% {
+        transform: translateX(-6px);
+      }
+
+      20% {
+        transform: translateX(6px);
+      }
+
+      30% {
+        transform: translateX(-6px);
+      }
+
+      40% {
+        transform: translateX(6px);
+      }
+
+      50% {
+        transform: translateX(-4px);
+      }
+
+      60% {
+        transform: translateX(4px);
+      }
+
+      70% {
+        transform: translateX(-2px);
+      }
+
+      80% {
+        transform: translateX(2px);
+      }
+
+      90% {
+        transform: translateX(-1px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .input.shaking {
+      animation: shake 1s ease-in-out infinite;
+    }
+
+
+    .results-container {
+      background-color: var(--card-color);
+      border-radius: 1rem;
+      padding: .5rem;
+      box-shadow: var(--shadow);
+      margin-top: 1.5rem;
+      position: sticky;
+      display: flex;
+      align-items: start;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .text-right.text-lg.font-semibold.text-success {
+      font-size: 16px;
+      color: #4f46e5;
+    }
+
+    .result-item {
+      background-color: rgba(79, 70, 229, 0.1);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-total {
+      font-weight: 600;
+      margin-top: 1rem;
+      color: var(--primary-color);
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .animated-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.05;
+    }
+
+    .result-item.flex.items-center.justify-between {
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .result-item.flex.items-center.justify-between:hover {
+      scale: 1.05;
+      transition: all .3s;
+    }
+
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .app-header {
+        border-radius: 0 0 1rem 1rem;
+        padding: 1.5rem 0;
+      }
+
+      .header-title {
+        font-size: 1.5rem;
+      }
+
+      * Styles cho card OT cải tiến */ .ot-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .ot-table-wrapper {
+
+        flex: 1;
+        min-height: 100px;
+        max-height: 180px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-color);
+        background-color: white;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) #f0f0f0;
+      }
+
+      .ot-table-wrapper::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .ot-table-wrapper::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 3px;
+      }
+
+      .ot-table-wrapper::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 3px;
+      }
+
+      .ot-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+      }
+
+      .ot-table th,
+      .ot-table td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .ot-table th {
+        background-color: #f8fafc;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 1px 0 var(--border-color);
+      }
+
+      .ot-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .ot-table tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+
+      .ot-table tr:hover {
+        background-color: rgba(79, 70, 229, 0.05);
+      }
+
+      #otSummary {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        font-size: 0.85rem;
+      }
+
+      .empty-ot-state i {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    /* Utility classes */
+    .mt-2 {
+      margin-top: 0.5rem;
+    }
+
+    .mt-4 {
+      margin-top: 1rem;
+    }
+
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .gap-2 {
+      gap: 0.5rem;
+    }
+
+    .text-accent {
+      color: var(--primary-color);
+    }
+
+    .text-primary {
+      color: var(--primary-color);
+    }
+
+    .text-success {
+      color: var(--secondary-color);
+    }
+
+    .text-xl {
+      font-size: 1.25rem;
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .parent {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 8px;
+      background-color: #000000,
+    }
+
+
+
+    .div4 {
+      grid-column: span 2 / span 2;
+      grid-row: span 2 / span 2;
+      grid-column-start: 1;
+      grid-row-start: 2;
+    }
+
+    .div7 {
+      grid-column-start: 3;
+      grid-row-start: 1;
+    }
+
+    div.cart-ano-cacu,
+    div.cart-review-cacu,
+    div.cart-ano-review-cacu {
+      width: 90%;
+    }
+
+    .div8 {
+      grid-column-start: 3;
+      grid-row-start: 2;
+    }
+
+    .div9 {
+      grid-column-start: 3;
+      grid-row-start: 3;
+    }
+
+    .div10 {
+      grid-column-start: 4;
+      grid-row-start: 1;
+    }
+
+    .div11 {
+      grid-column-start: 4;
+      grid-row-start: 2;
+    }
+
+    .div12 {
+      grid-column-start: 4;
+      grid-row-start: 3;
+    }
+
+    .flatpickr-input[readonly] {
+      margin-bottom: 10px;
+    }
+
+    div#otSummary {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* style dark mode */
+    body.dark {
+      background-color: #1f1f1f;
+      color: #f0f0f0;
+    }
+
+    .toggle-wrapper {
+      width: 100px;
+      height: 50px;
+      border-radius: 50px;
+      background-color: #e0e0e0;
+      position: absolute;
+      right: 0;
+      cursor: pointer;
+      transition: background-color 0.4s ease;
+    }
+
+    .toggle-wrapper.dark {
+      background-color: #444;
+    }
+
+    .toggle-ball {
+      width: 46px;
+      height: 46px;
+      background-color: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-wrapper.dark .toggle-ball {
+      left: 52px;
+      background-color: #1e1e1e;
+      color: #f0c420;
+    }
+
+    .header-title span {
+      filter: blur(5px);
+      transition: filter 0.5s ease;
+    }
+
+    .header-title span.active {
+      filter: blur(0);
+    }
+
+    .focus-frame {
+      position: absolute;
+      top: 32px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .corner {
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      border: 3px solid red;
+      filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.6));
+      border-radius: 3px;
+    }
+
+    .top-left {
+      top: -10px;
+      left: -10px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .top-right {
+      top: -10px;
+      right: -10px;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .bottom-left {
+      bottom: -10px;
+      left: -10px;
+      border-right: none;
+      border-top: none;
+    }
+
+    .bottom-right {
+      bottom: -10px;
+      right: -10px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .icon {
+      transition: opacity 0.4s ease;
+    }
+
+    .icon.sun {
+      color: #fdd835;
+    }
+
+    .icon.moon {
+      color: white;
+    }
+
+    footer {
+      /* bottom: 0;
     color: black;
     position: fixed;
     text-align: center;
     width: 100%;
     padding-top: 100px; */
-            width: 100%;
-            color: #4f46e5;
-            padding: 10px;
-            font-size: 17px;
-            font-weight: 700;
-            position: absolute;
-            bottom: -47px;
-        }
-    </style>
+      width: 100%;
+      color: #4f46e5;
+      padding: 10px;
+      font-size: 17px;
+      font-weight: 700;
+      position: absolute;
+      bottom: -47px;
+    }
+
+    #globalLoading {
+      display: grid;
+      grid-template-columns: repeat(5, 20px);
+      position: fixed;
+      gap: 5px;
+      top: 0;
+      width: 100%;
+      right: 0;
+      height: 100%;
+      background: #f3f3f3;
+      left: 0;
+      z-index: 999999999999999999999999999999999999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ball {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      animation: wave 1.5s ease-in-out infinite;
+      background-color: #37bf57;
+    }
+
+    .ball:nth-child(2) {
+      animation-delay: -0.2s;
+      background-color: #49caa1;
+    }
+
+    .ball:nth-child(3) {
+      animation-delay: -0.4s;
+      background-color: #12aab4;
+    }
+
+    .ball:nth-child(4) {
+      animation-delay: -0.6s;
+      background-color: #2c88c1;
+    }
+
+    .ball:nth-child(5) {
+      animation-delay: -0.8s;
+      background-color: #6b45b1;
+    }
+
+    @keyframes wave {
+
+      0%,
+      100% {
+        transform: translateY(20px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
-    <div id="vanta-bg"></div>
-    <div class="animated-background" id="animated-bg"></div>
+  <!-- Spinner toàn màn hình -->
+  <!-- <div id="globalLoading" class="global-spinner hidden">
+    <div class="spinner-text">⏳ Đang xử lý, vui lòng đợi...</div>
+  </div> -->
 
-    <header class="app-header">
-        <div class="container">
-            <h1 class="header-title">Bảng Tính Ngân Lượng</h1>
-            <p class="header-subtitle">Tháng <span id="currentMonthText" class="font-bold"></span></p>
-        </div>
-    </header>
+  <div id="globalLoading" class="hidden">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+  </div>
 
+  <div id="vanta-bg"></div>
+  <div class="animated-background" id="animated-bg"></div>
+
+  <header class="app-header">
     <div class="container">
-        <div class="card-grid parent">
-            <!-- Allocate Tháng -->
-            <div class="card div1">
-                <h3 class="card-title">
-                    <i class="fas fa-calendar-alt card-icon"></i>
-                    Allocate Tháng
-                </h3>
-                <div class="flex items-center gap-2">
-                    <input type="number" id="totalWorkMonth" class="input" value="20" min="17" max="23"
-                        style="width: 47% !important; text-align: center;">
-                </div>
-            </div>
-
-            <!-- Lương cố định -->
-            <div class="card div2">
-                <h3 class="card-title">
-                    <i class="fas fa-money-bill-wave card-icon"></i>
-                    Lương cố định
-                </h3>
-                <div class="range-container">
-                    <input type="range" id="luongRange" min="4000000" max="10000000" step="500000" value="6000000" />
-                    <div id="luongText" class="range-value">6,000,000₫</div>
-                </div>
-            </div>
+      <h1 class="header-title" id="focus-text">
+        <span>Bảng Tính</span>
+        <span>Ngân Lượng</span>
+      </h1>
+      <div class="focus-frame">
+        <span class="corner top-left"></span>
+        <span class="corner top-right"></span>
+        <span class="corner bottom-left"></span>
+        <span class="corner bottom-right"></span>
+      </div>
 
 
+      <p class="header-subtitle">Tháng <span id="currentMonthText" class="font-bold"></span></p>
+    </div>
+  </header>
 
-            <!-- Tổng tiền nhận được -->
-            <div class="card div3">
-                <h3 class="card-title">
-                    <i class="fas fa-hand-holding-dollar card-icon"></i>
-                    Tổng nhận
-                </h3>
-                <div id="divTong" class="card-value text-accent" style="font-size:29px; color: red;"></div>
-            </div>
+  <div class="container">
+    <div class="card-grid parent">
+      <!-- Allocate Tháng -->
+      <div class="card div1">
+        <h3 class="card-title">
+          <i class="fas fa-calendar-alt card-icon"></i>
+          Allocate Tháng
+        </h3>
+        <div class="flex items-center gap-2">
+          <input type="number" id="totalWorkMonth" class="input" value="20" min="17" max="23"
+            style="width: 47% !important; text-align: center;">
+        </div>
+      </div>
 
-
-            <!-- Công OT + lịch - Card cải tiến -->
-            <div class="card ot-card div4">
-                <h3 class="card-title">
-                    <i class="fas fa-clock card-icon"></i>
-                    Công OT
-                </h3>
-                <input id="otPicker" class="input" placeholder="Chọn ngày OT" readonly />
-                <div class="custumn_ot">
-                    <div id="otSummary" class="mt-2 text-primary"></div>
-                    <div id="otTotalSummary" class="mt-2"></div>
-                </div>
-                <div class="ot-table-wrapper">
-                    <table class="ot-table">
-                        <thead>
-                            <tr>
-                                <th>Ngày</th>
-                                <th>Loại OT</th>
-                            </tr>
-                        </thead>
-                        <tbody id="otTable"></tbody>
-                    </table>
-                </div>
-
-            </div>
-
-            <!-- Tiền OT -->
-            <div class="card div5">
-                <h3 class="card-title">
-                    <i class="fas fa-sack-dollar card-icon"></i>
-                    Tiền OT
-                </h3>
-                <div id="divOT" class="card-value" style="font-size: 29px; color: red;"></div>
-            </div>
+      <!-- Lương cố định -->
+      <div class="card div2">
+        <h3 class="card-title">
+          <i class="fas fa-money-bill-wave card-icon"></i>
+          Lương cố định
+        </h3>
+        <div class="range-container">
+          <input type="range" id="luongRange" min="4000000" max="10000000" step="500000" value="6000000" />
+          <div id="luongText" class="range-value">6,000,000₫</div>
+        </div>
+      </div>
 
 
 
-            <!-- Thưởng công khoán -->
-            <div class="card div6">
-                <h3 class="card-title">
-                    <i class="fas fa-award card-icon"></i>
-                    Thưởng Bonus
-                </h3>
-                <div id="divThuongKhoan" class="card-value" style="font-size: 29px; color: red;"></div>
-            </div>
-
-            <!-- Tổng công đã làm -->
-            <div class="card div7">
-                <h3 class="card-title">
-                    <i class="fas fa-business-time card-icon"></i>
-                    Tổng công đã làm
-                </h3>
-                <input type="number" id="totalWork" class="input" value="0" min="0" max="70">
-            </div>
+      <!-- Tổng tiền nhận được -->
+      <div class="card div3">
+        <h3 class="card-title">
+          <i class="fas fa-hand-holding-dollar card-icon"></i>
+          Tổng nhận
+        </h3>
+        <div id="divTong" class="card-value text-accent" style="font-size:29px; color: red;"></div>
+      </div>
 
 
-
-            <!-- Công khoán không Donet -->
-            <div class="card div8">
-                <h3 class="card-title">
-                    <i class="fas fa-tasks card-icon"></i>
-                    Khoán
-                </h3>
-                <div id="divKhoanKoDonet" class="card-value"></div>
-            </div>
-            <!-- công bonus -->
-            <div class="card div9">
-                <h3 class="card-title">
-                    <i class="fas fa-star card-icon"></i>
-                    Công Bonus
-                </h3>
-                <div id="divKhoan" class="card-value"></div>
-            </div>
-
+      <!-- Công OT + lịch - Card cải tiến -->
+      <div class="card ot-card div4">
+        <h3 class="card-title">
+          <i class="fas fa-clock card-icon"></i>
+          Công OT
+        </h3>
+        <input id="otPicker" class="input" placeholder="Chọn ngày OT" readonly />
+        <div class="custumn_ot">
+          <div id="otSummary" class="mt-2 text-primary"></div>
+          <div id="otTotalSummary" class="mt-2"></div>
+        </div>
+        <div class="ot-table-wrapper">
+          <table class="ot-table">
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Loại OT</th>
+              </tr>
+            </thead>
+            <tbody id="otTable"></tbody>
+          </table>
         </div>
 
-        <h2 class="section-title">Công Thức Tính - Chia Công</h2>
+      </div>
 
+      <!-- Tiền OT -->
+      <div class="card div5">
+        <h3 class="card-title">
+          <i class="fas fa-sack-dollar card-icon"></i>
+          Tiền OT
+        </h3>
+        <div id="divOT" class="card-value" style="font-size: 29px; color: red;"></div>
+      </div>
+
+
+
+      <!-- Thưởng công khoán -->
+      <div class="card div6">
+        <h3 class="card-title">
+          <i class="fas fa-award card-icon"></i>
+          Thưởng Bonus
+        </h3>
+        <div id="divThuongKhoan" class="card-value" style="font-size: 29px; color: red;"></div>
+      </div>
+
+      <!-- Tổng công đã làm -->
+      <div class="card div7">
+        <h3 class="card-title">
+          <i class="fas fa-business-time card-icon"></i>
+          Tổng công đã làm
+        </h3>
+        <input type="number" id="totalWork" class="input" value="0" min="0" max="70">
+      </div>
+
+
+
+      <!-- Công khoán không Donet -->
+      <div class="card div8">
+        <h3 class="card-title">
+          <i class="fas fa-tasks card-icon"></i>
+          Khoán
+        </h3>
+        <div id="divKhoanKoDonet" class="card-value"></div>
+      </div>
+      <!-- công bonus -->
+      <div class="card div9">
+        <h3 class="card-title">
+          <i class="fas fa-star card-icon"></i>
+          Công Bonus
+        </h3>
+        <div id="divKhoan" class="card-value"></div>
+      </div>
+
+    </div>
+
+    <h2 class="section-title">Công Thức Tính - Chia Công</h2>
+
+    <!-- Tab Buttons -->
+    <div class="btn-ano-rev">
+      <div class="tab-container">
+        <button class="tab-button active" id="btn-ano">Ano-ALT</button>
+        <button class="tab-button" id="btn-rev">REVISION</button>
+      </div>
+    </div>
+
+    <!-- Nội dung có hiệu ứng fade/scale -->
+    <div class="tab-wrapper">
+      <div id="loadingSpinner" class="hidden">
+        <div class="spinner">Đang tìm kiếm...</div>
+      </div>
+
+      <div class="tab-panel bg-green active" id="panel-ano">
         <div class="card-grid parents">
-            <div class="card divs1">
-                <h3 class="card-title">
-                    <i class="fas fa-code-branch card-icon"></i>
-                    Obj Ano
-                </h3>
-                <textarea id="anoInput" placeholder="Nhập obj Ano (Vào docs copy)" class="input"
-                    style="min-height: 100px"></textarea>
-                <div id="anoTags" class="tags-container"></div>
-            </div>
+          <div class="card divs1">
+            <h3 class="card-title">
+              <i class="fas fa-code-branch card-icon"></i>
+              Obj Ano
+            </h3>
+            <textarea id="anoInput" placeholder="Nhập obj Ano (Vào docs copy)" class="input"
+              style="min-height: 100px"></textarea>
+            <div id="anoTags" class="tags-container"></div>
+          </div>
 
-            <div class="card divs1">
-                <h3 class="card-title">
-                    <i class="fas fa-check-square card-icon"></i>
-                    Obj Review
-                </h3>
-                <textarea id="reviewInput" placeholder="Nhập obj Review (Vào docs copy)" class="input"
-                    style="min-height: 100px"></textarea>
-                <div id="reviewTags" class="tags-container"></div>
-            </div>
+          <div class="card divs1">
+            <h3 class="card-title">
+              <i class="fas fa-check-square card-icon"></i>
+              Obj Review
+            </h3>
+            <textarea id="reviewInput" placeholder="Nhập obj Review (Vào docs copy)" class="input"
+              style="min-height: 100px"></textarea>
+            <div id="reviewTags" class="tags-container"></div>
+          </div>
 
-            <div class="card divs1">
-                <h3 class="card-title">
-                    <i class="fas fa-calculator card-icon"></i>
-                    Số công cần lấy
-                </h3>
-                <input id="targetWork" type="number" step="0.01" placeholder="Nhập số công cần lấy" class="input">
-                <button onclick="getNeededTasks() ;  window.scrollBy({top: 1500, behavior: 'smooth'})" class="btn mt-4">
-                    <i class="fas fa-paper-plane"></i> Tính toán
-                </button>
-                <p id="noticeText" class="mt-4 text-center text-warning hidden">
-                    <i class="fas fa-info-circle"></i> Chọn 1 trong 3 cột bên dưới để lấy số công cần chia
-                </p>
+          <div class="card divs1">
+            <h3 class="card-title">
+              <i class="fas fa-calculator card-icon"></i>
+              Số công cần lấy
+            </h3>
+            <input id="targetWork" type="number" step="0.01" placeholder="Nhập số công cần lấy" class="input">
+            <button onclick="getNeededTasksALT() ;  window.scrollBy({top: 1500, behavior: 'smooth'})" class="btn mt-4">
+              <i class="fas fa-paper-plane"></i> Tính toán
+            </button>
+            <p id="noticeText" class="mt-4 text-center text-warning hidden">
+              <i class="fas fa-info-circle"></i> Chọn 1 trong 3 cột bên dưới để lấy số công cần chia
+            </p>
 
-            </div>
+          </div>
         </div>
 
         <div class="results-container" style="position: relative;">
-            <div class="cart-ano-cacu">
-                <h3 class="card-title mb-2">
-                    <i class="fas fa-list-check card-icon"></i>
-                    Task Ano được chọn
-                </h3>
-                <div id="anoResult" class="flex flex-col gap-2"></div>
-            </div>
-            <div class="cart-review-cacu">
+          <div class="cart-ano-cacu">
+            <h3 class="card-title mb-2">
+              <i class="fas fa-list-check card-icon"></i>
+              Task Ano được chọn
+            </h3>
+            <div id="anoResult" class="flex flex-col gap-2"></div>
+          </div>
+          <div class="cart-review-cacu">
 
-                <h3 class="card-title mb-2 mt-4" style="margin-top: 0 !important;">
-                    <i class="fas fa-list-check card-icon"></i>
-                    Task Review được chọn
-                </h3>
-                <div id="reviewResult" class="flex flex-col gap-2"></div>
-            </div>
-            <div class="cart-ano-review-cacu">
-                <h3 class="card-title mb-2 mt-4" style="margin-top: 0 !important;">
-                    <i class="fas fa-list-check card-icon"></i>
-                    Kết hợp Ano + Review
-                </h3>
-                <div id="combinedResult" class="flex flex-col gap-2"></div>
-            </div>
-            <footer class="text-center text-sm text-gray-500 mt-6">
-                © 2025 Bảng Tính Lương — Coded with ❤️ by HuyHV1<br>
-            </footer>
+            <h3 class="card-title mb-2 mt-4" style="margin-top: 0 !important;">
+              <i class="fas fa-list-check card-icon"></i>
+              Task Review được chọn
+            </h3>
+            <div id="reviewResult" class="flex flex-col gap-2"></div>
+          </div>
+          <div class="cart-ano-review-cacu">
+            <h3 class="card-title mb-2 mt-4" style="margin-top: 0 !important;">
+              <i class="fas fa-list-check card-icon"></i>
+              Kết hợp Ano + Review
+            </h3>
+            <div id="combinedResult" class="flex flex-col gap-2"></div>
+          </div>
+          <footer class="text-center text-sm text-gray-500 mt-6">
+            © 2025 Bảng Tính Lương — Coded with ❤️ by HuyHV1<br>
+          </footer>
         </div>
+      </div>
+      <div class="tab-panel bg-yellow" id="panel-rev">
+        <div class="card-grid parents">
+          <div class="card divs1">
+            <h3 class="card-title">
+              <i class="fas fa-code-branch card-icon"></i>
+              Obj Ano Rev
+            </h3>
+            <textarea id="anoInputRev" placeholder="Nhập obj Ano Rev (Vào docs copy)" class="input"
+              style="min-height: 100px"></textarea>
+            <div id="anoTagsRev" class="tags-container"></div>
+          </div>
+
+          <div class="card divs1">
+            <h3 class="card-title">
+              <i class="fas fa-check-square card-icon"></i>
+              Obj Review Rev
+            </h3>
+            <textarea id="reviewInputRev" placeholder="Nhập obj Review (Vào docs copy)" class="input"
+              style="min-height: 100px"></textarea>
+            <div id="reviewTagsRev" class="tags-container"></div>
+          </div>
+
+          <div class="card divs1">
+            <h3 class="card-title">
+              <i class="fas fa-calculator card-icon"></i>
+              Số công cần lấy
+            </h3>
+            <input id="targetWorkRev" type="number" step="0.01" placeholder="Nhập số công cần lấy" class="input">
+            <button id="btnREV" onclick="getNeededTasksRev() ;  window.scrollBy({top: 1600, behavior: 'smooth'})"
+              class="btn mt-4">
+              <i class="fas fa-paper-plane"></i> Tính toán
+            </button>
+            <p id="noticeTextRev" class="mt-4 text-center text-warning hidden">
+              <i class="fas fa-info-circle"></i> Chọn 1 trong 3 cột bên dưới để lấy số công cần chia
+            </p>
+
+          </div>
+        </div>
+
+        <div class="results-container" style="position: relative;">
+          <div class="cart-ano-cacu">
+            <h3 class="card-title mb-2">
+              <i class="fas fa-list-check card-icon"></i>
+              Task Ano Rev được chọn
+            </h3>
+            <div id="anoResultRev" class="flex flex-col gap-2"></div>
+          </div>
+          <div class="cart-review-cacu">
+
+            <h3 class="card-title mb-2 mt-4" style="margin-top: 0 !important;">
+              <i class="fas fa-list-check card-icon"></i>
+              Task Review Rev được chọn
+            </h3>
+            <div id="reviewResultRev" class="flex flex-col gap-2"></div>
+          </div>
+          <div class="cart-ano-review-cacu">
+            <h3 class="card-title mb-2 mt-4" style="margin-top: 0 !important;">
+              <i class="fas fa-list-check card-icon"></i>
+              Kết hợp Ano Rev + Review Rev
+            </h3>
+            <div id="combinedResultRev" class="flex flex-col gap-2"></div>
+          </div>
+          <footer class="text-center text-sm text-gray-500 mt-6">
+            © 2025 Bảng Tính Lương — Coded with ❤️ by HuyHV1<br>
+          </footer>
+        </div>
+      </div>
     </div>
 
 
-    <!-- Vanta.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  </div>
 
-    <script>
-        VANTA.BIRDS({
-            el: "#vanta-bg",
-            backgroundColor: 0xFFFFFF,      // Màu nền
-            color1: 0x3399FF,               // Màu cánh chim
-            color2: 0xff66cc,               // Màu cánh chim phụ
-            birdSize: 1.5,
-            speedLimit: 4.0,
-            separation: 50.0,
-            alignment: 40.0,
-            cohesion: 30.0,
-            quantity: 4                   // Số lượng chim
-        });
-        // Cấu trúc dữ liệu
-        const APP_DATA = {
-            allocateMap: {
-                3: "21/21", 4: "21/21", 5: "20/20", 6: "21/21",
-                7: "23/23", 8: "21/21", 9: "20/20", 10: "23/23",
-                11: "20/20", 12: "23/23"
-            },
-            constants: {
-                phiTru: 530000
-            },
-            state: {
-                otDates: [],
-                currentMonth: new Date().getMonth() + 1
-            }
-        };
-        // Hàm định dạng ngày theo locale
-        function formatDate(date) {
-            return new Intl.DateTimeFormat('vi-VN', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            }).format(date);
-        }
 
-        // Khởi tạo animated background
-        function initAnimatedBackground() {
-            // Thêm animated background đơn giản
-            const canvas = document.getElementById('animated-bg');
+  <!-- Vanta.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
-            // Tạo random stars với hiệu ứng gradient
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.style.position = 'absolute';
-                star.style.width = `${Math.random() * 3 + 1}px`;
-                star.style.height = star.style.width;
-                star.style.borderRadius = '50%';
-                star.style.backgroundColor = '#4f46e5';
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.opacity = `${Math.random() * 0.5 + 0.5}`;
-                star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite alternate`;
-                canvas.appendChild(star);
-            }
+  <script>
+    VANTA.BIRDS({
+      el: "#vanta-bg",
+      backgroundColor: 0xFFFFFF,      // Màu nền
+      color1: 0x3399FF,               // Màu cánh chim
+      color2: 0xff66cc,               // Màu cánh chim phụ
+      birdSize: 1.5,
+      speedLimit: 4.0,
+      separation: 50.0,
+      alignment: 40.0,
+      cohesion: 30.0,
+      quantity: 4                   // Số lượng chim
+    });
+    // Cấu trúc dữ liệu
+    const APP_DATA = {
+      allocateMap: {
+        3: "21/21", 4: "21/21", 5: "20/20", 6: "21/21",
+        7: "23/23", 8: "21/21", 9: "20/20", 10: "23/23",
+        11: "20/20", 12: "23/23"
+      },
+      constants: {
+        phiTru: 530000
+      },
+      state: {
+        otDates: [],
+        currentMonth: new Date().getMonth() + 1
+      }
+    };
 
-            // Thêm style animation
-            const style = document.createElement('style');
-            style.textContent = `
+    const btnAno = document.getElementById("btn-ano");
+    const btnRev = document.getElementById("btn-rev");
+    const panelAno = document.getElementById("panel-ano");
+    const panelRev = document.getElementById("panel-rev");
+
+    btnAno.addEventListener("click", () => {
+      btnAno.classList.add("active");
+      btnRev.classList.remove("active");
+
+      panelAno.classList.add("active");
+      panelRev.classList.remove("active");
+
+      // Ẩn noticeText của tab "REVISION" nếu đang ở "Ano-ALT"
+      document.getElementById('noticeTextRev').classList.add("hidden");
+
+      // Hiện noticeText của tab "Ano-ALT"
+      document.getElementById('noticeText').classList.remove("hidden");
+    });
+
+    btnRev.addEventListener("click", () => {
+      btnRev.classList.add("active");
+      btnAno.classList.remove("active");
+
+      panelRev.classList.add("active");
+      panelAno.classList.remove("active");
+
+      // Ẩn noticeText của tab "Ano-ALT" nếu đang ở "REVISION"
+      document.getElementById('noticeText').classList.add("hidden");
+
+      // Hiện noticeText của tab "REVISION"
+      document.getElementById('noticeTextRev').classList.remove("hidden");
+    });
+
+    // Hàm định dạng ngày theo locale
+    function formatDate(date) {
+      return new Intl.DateTimeFormat('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).format(date);
+    }
+
+    // Khởi tạo animated background
+    function initAnimatedBackground() {
+      // Thêm animated background đơn giản
+      const canvas = document.getElementById('animated-bg');
+
+      // Tạo random stars với hiệu ứng gradient
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.style.position = 'absolute';
+        star.style.width = `${Math.random() * 3 + 1}px`;
+        star.style.height = star.style.width;
+        star.style.borderRadius = '50%';
+        star.style.backgroundColor = '#4f46e5';
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.opacity = `${Math.random() * 0.5 + 0.5}`;
+        star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite alternate`;
+        canvas.appendChild(star);
+      }
+
+      // Thêm style animation
+      const style = document.createElement('style');
+      style.textContent = `
         @keyframes twinkle {
           0% { opacity: 0.3; transform: scale(1); }
           100% { opacity: 1; transform: scale(1.5); }
         }
       `;
-            document.head.appendChild(style);
+      document.head.appendChild(style);
+    }
+
+    // Khởi tạo Flatpickr
+    function initFlatpickr() {
+      flatpickr("#otPicker", {
+        mode: "multiple",
+        dateFormat: "d/m/Y",
+        locale: "vi",
+        onChange: function (selectedDates) {
+          APP_DATA.state.otDates = selectedDates;
+          updateCalculations();
         }
+      });
+    }
 
-        // Khởi tạo Flatpickr
-        function initFlatpickr() {
-            flatpickr("#otPicker", {
-                mode: "multiple",
-                dateFormat: "d/m/Y",
-                locale: "vi",
-                onChange: function (selectedDates) {
-                    APP_DATA.state.otDates = selectedDates;
-                    updateCalculations();
-                }
-            });
-        }
+    // Tính số lượng OT theo loại
+    function countOTTypes() {
+      let ot1Count = 0, ot2Count = 0;
+      APP_DATA.state.otDates.forEach(date => {
+        const day = date.getDay();
+        if (day === 0) ot2Count += 1;
+        else ot1Count += 1;
+      });
+      return { ot1Count, ot2Count };
+    }
 
-        // Tính số lượng OT theo loại
-        function countOTTypes() {
-            let ot1Count = 0, ot2Count = 0;
-            APP_DATA.state.otDates.forEach(date => {
-                const day = date.getDay();
-                if (day === 0) ot2Count += 1;
-                else ot1Count += 1;
-            });
-            return { ot1Count, ot2Count };
-        }
+    // Hàm tính lương
+    function calculateSalary() {
+      const tongCongInput = parseFloat(document.getElementById("totalWork").value) || 0;
+      const luongCoBan = parseInt(document.getElementById("luongRange").value);
+      const congChuan = parseInt(document.getElementById("totalWorkMonth").value);
+      const tien1Cong = luongCoBan / congChuan;
 
-        // Hàm tính lương
-        function calculateSalary() {
-            const tongCongInput = parseFloat(document.getElementById("totalWork").value) || 0;
-            const luongCoBan = parseInt(document.getElementById("luongRange").value);
-            const congChuan = parseInt(document.getElementById("totalWorkMonth").value);
-            const tien1Cong = luongCoBan / congChuan;
+      const { ot1Count, ot2Count } = countOTTypes();
+      const ot1Cong = ot1Count * 0.5;
+      const ot2Cong = ot2Count * 1;
 
-            const { ot1Count, ot2Count } = countOTTypes();
-            const ot1Cong = ot1Count * 0.5;
-            const ot2Cong = ot2Count * 1;
+      const tongCongOT = ot1Cong + ot2Cong;
+      const congAllocate = Math.min(tongCongInput, congChuan);
+      const congOTUsed = Math.min(tongCongOT, tongCongInput - congAllocate);
 
-            const tongCongOT = ot1Cong + ot2Cong;
-            const congAllocate = Math.min(tongCongInput, congChuan);
-            const congOTUsed = Math.min(tongCongOT, tongCongInput - congAllocate);
+      const otUsedRatio = congOTUsed / (tongCongOT || 1);
+      const usedOT1Cong = ot1Cong * otUsedRatio;
+      const usedOT2Cong = ot2Cong * otUsedRatio;
 
-            const otUsedRatio = congOTUsed / (tongCongOT || 1);
-            const usedOT1Cong = ot1Cong * otUsedRatio;
-            const usedOT2Cong = ot2Cong * otUsedRatio;
+      const tienOTUsed = usedOT1Cong * tien1Cong * 1.5 + usedOT2Cong * tien1Cong * 2;
 
-            const tienOTUsed = usedOT1Cong * tien1Cong * 1.5 + usedOT2Cong * tien1Cong * 2;
+      const congKhoan = tongCongInput - congAllocate - congOTUsed;
+      let congDonet = 0, thuongDonet = 0;
+      let congKoDonet = 0, thuongKoDonet = 0;
 
-            const congKhoan = tongCongInput - congAllocate - congOTUsed;
-            let congDonet = 0, thuongDonet = 0;
-            let congKoDonet = 0, thuongKoDonet = 0;
+      // Tính mức thưởng
+      if (congKhoan >= 14) {
+        congDonet = 14;
+        thuongDonet = 14 * 230000 + 500000;
+      } else if (congKhoan >= 12) {
+        congDonet = 12;
+        thuongDonet = 12 * 230000 + 300000;
+      } else if (congKhoan >= 8) {
+        congDonet = 8;
+        thuongDonet = 8 * 200000 + 200000;
+      }
 
-            // Tính mức thưởng
-            if (congKhoan >= 14) {
-                congDonet = 14;
-                thuongDonet = 14 * 230000 + 500000;
-            } else if (congKhoan >= 12) {
-                congDonet = 12;
-                thuongDonet = 12 * 230000 + 300000;
-            } else if (congKhoan >= 8) {
-                congDonet = 8;
-                thuongDonet = 8 * 200000 + 200000;
-            }
+      congKoDonet = congKhoan - congDonet;
+      thuongKoDonet = congKoDonet >= 10 ? congKoDonet * 230000 : congKoDonet * 200000;
 
-            congKoDonet = congKhoan - congDonet;
-            thuongKoDonet = congKoDonet >= 10 ? congKoDonet * 230000 : congKoDonet * 200000;
+      const tongNhan = luongCoBan + thuongDonet + thuongKoDonet + tienOTUsed - APP_DATA.constants.phiTru;
 
-            const tongNhan = luongCoBan + thuongDonet + thuongKoDonet + tienOTUsed - APP_DATA.constants.phiTru;
+      return {
+        luongCoBan,
+        congDonet,
+        thuongDonet,
+        congKoDonet,
+        thuongKoDonet,
+        tienOTUsed,
+        usedOT1Cong,
+        usedOT2Cong,
+        tongNhan
+      };
+    }
 
-            return {
-                luongCoBan,
-                congDonet,
-                thuongDonet,
-                congKoDonet,
-                thuongKoDonet,
-                tienOTUsed,
-                usedOT1Cong,
-                usedOT2Cong,
-                tongNhan
-            };
-        }
-
-        // Cập nhật UI
-        function updateUI(salaryData) {
-            document.getElementById("luongText").innerHTML = `${salaryData.luongCoBan.toLocaleString()}₫`;
-            document.getElementById("divKhoan").innerHTML = `${salaryData.congDonet} công`;
-            document.getElementById("divThuongKhoan").innerHTML = `${salaryData.thuongDonet.toLocaleString()}₫`;
-            document.getElementById("divKhoanKoDonet").innerHTML = `
+    // Cập nhật UI
+    function updateUI(salaryData) {
+      document.getElementById("luongText").innerHTML = `${salaryData.luongCoBan.toLocaleString()}₫`;
+      document.getElementById("divKhoan").innerHTML = `${salaryData.congDonet} công`;
+      document.getElementById("divThuongKhoan").innerHTML = `${salaryData.thuongDonet.toLocaleString()}₫`;
+      document.getElementById("divKhoanKoDonet").innerHTML = `
   ${salaryData.congKoDonet} công<br>
   <span style="font-size: 29px; color: red;">
     ${salaryData.thuongKoDonet.toLocaleString()}₫
   </span>
 `;
 
-            // Tính tổng công OT
-            const tongCongOT = salaryData.usedOT1Cong + salaryData.usedOT2Cong;
-            // Hiển thị tổng OT bên phải
-            document.getElementById("otTotalSummary").innerHTML = `
+      // Tính tổng công OT
+      const tongCongOT = salaryData.usedOT1Cong + salaryData.usedOT2Cong;
+      // Hiển thị tổng OT bên phải
+      document.getElementById("otTotalSummary").innerHTML = `
   <div class="text-right text-lg font-semibold text-success">
     <i class="fas fa-sigma"></i> Tổng công OT: ${tongCongOT.toFixed(2)} công
   </div>
 `;
-            console.log(tongCongOT, "tongcongOT");
+      console.log(tongCongOT, "tongcongOT");
 
-            // Cập nhật phần OT
-            document.getElementById("divOT").innerHTML = `${Math.round(salaryData.tienOTUsed).toLocaleString()}₫`;
-            document.getElementById("otSummary").innerHTML = `
+      // Cập nhật phần OT
+      document.getElementById("divOT").innerHTML = `${Math.round(salaryData.tienOTUsed).toLocaleString()}₫`;
+      document.getElementById("otSummary").innerHTML = `
     <span><i class="fas fa-user-clock text-primary"></i> OT1: <strong>${salaryData.usedOT1Cong.toFixed(2)}</strong> công</span>
     <span><i class="fas fa-calendar-check text-accent"></i> OT2: <strong>${salaryData.usedOT2Cong.toFixed(2)}</strong> công</span>
     <span><i class="fas fa-book"></i> OT3: <strong>0.00</strong> công</span>
   `;
-            document.getElementById("divTong").innerHTML = `${Math.round(salaryData.tongNhan).toLocaleString()}₫`;
+      document.getElementById("divTong").innerHTML = `${Math.round(salaryData.tongNhan).toLocaleString()}₫`;
 
-            document.getElementById("otTable").innerHTML = APP_DATA.state.otDates.map(d => {
-                const day = d.getDay();
-                const label = day === 0 ? "OT2" : "OT1";
-                return `<tr><td>${d.toLocaleDateString()}</td><td>${label}</td></tr>`;
-            }).join("");
-        }
+      document.getElementById("otTable").innerHTML = APP_DATA.state.otDates.map(d => {
+        const day = d.getDay();
+        const label = day === 0 ? "OT2" : "OT1";
+        return `<tr><td>${d.toLocaleDateString()}</td><td>${label}</td></tr>`;
+      }).join("");
+    }
+    // Hàm cập nhật tính toán
+    function updateCalculations() {
+      const salaryData = calculateSalary();
+      updateUI(salaryData);
+    }
 
+    // Khởi tạo event listeners
+    function initEventListeners() {
+      document.getElementById("totalWork").addEventListener("input", updateCalculations);
+      document.getElementById("totalWorkMonth").addEventListener("input", updateCalculations);
+      document.getElementById("luongRange").addEventListener("input", updateCalculations);
 
+      // Event listeners cho input tags
+      document.getElementById('anoInput').addEventListener('input', () => {
+        createTagsFromInput('anoInput', 'anoTags');
+      });
 
-        // Hàm cập nhật tính toán
-        function updateCalculations() {
-            const salaryData = calculateSalary();
-            updateUI(salaryData);
-        }
+      document.getElementById('anoInputRev').addEventListener('input', () => {
+        createTagsFromInput('anoInputRev', 'anoTagsRev'); // phải có container khác
+      });
 
-        // Khởi tạo event listeners
-        function initEventListeners() {
-            document.getElementById("totalWork").addEventListener("input", updateCalculations);
-            document.getElementById("totalWorkMonth").addEventListener("input", updateCalculations);
-            document.getElementById("luongRange").addEventListener("input", updateCalculations);
+      document.getElementById('reviewInput').addEventListener('input', () => {
+        createTagsFromInput('reviewInput', 'reviewTags');
+      });
 
-            // Event listeners cho input tags
-            document.getElementById('anoInput').addEventListener('input', () => {
-                createTagsFromInput('anoInput', 'anoTags');
-            });
+      document.getElementById('reviewInputRev').addEventListener('input', () => {
+        createTagsFromInput('reviewInputRev', 'reviewTagsRev');
+      });
+    }
 
-            document.getElementById('reviewInput').addEventListener('input', () => {
-                createTagsFromInput('reviewInput', 'reviewTags');
-            });
-        }
-
-        // Thêm CSS cho badges
-        function addOTStyles() {
-            const style = document.createElement('style');
-            style.textContent = `
+    // Thêm CSS cho badges
+    function addOTStyles() {
+      const style = document.createElement('style');
+      style.textContent = `
     .ot-badge {
       display: inline-block;
       padding: 0.25rem 0.5rem;
@@ -1030,246 +1472,274 @@
       color: var(--accent-color);
     }
   `;
-            document.head.appendChild(style);
+      document.head.appendChild(style);
+    }
+
+    // Tạo tags từ input
+    function createTagsFromInput(inputId, tagsContainerId) {
+      const input = document.getElementById(inputId);
+      const container = document.getElementById(tagsContainerId);
+      container.innerHTML = '';
+
+      const values = input.value
+        .split(/[\n, ]+/)
+        .map(v => v.trim())
+        .filter(v => v !== '' && !isNaN(v));
+
+      values.forEach((val) => {
+        const tag = document.createElement('div');
+        tag.className = 'tag';
+
+        const text = document.createElement('span');
+        text.textContent = val;
+
+        const close = document.createElement('span');
+        close.innerHTML = '×';
+        close.className = 'tag-remove';
+        close.onclick = () => {
+          // Xoá giá trị cụ thể (lần đầu tiên xuất hiện)
+          const currentValues = input.value
+            .split(/[\n, ]+/)
+            .map(v => v.trim())
+            .filter(v => v !== '');
+
+          const indexToRemove = currentValues.indexOf(val);
+          if (indexToRemove !== -1) {
+            currentValues.splice(indexToRemove, 1);
+            input.value = currentValues.join('\n');
+            createTagsFromInput(inputId, tagsContainerId);
+          }
+        };
+
+        tag.appendChild(text);
+        tag.appendChild(close);
+        container.appendChild(tag);
+      });
+    }
+
+
+    // Hàm tìm tasks phù hợp
+    // Hàm phân tích dữ liệu nhập vào
+    function parseInput(inputId) {
+      return (document.getElementById(inputId)?.value || '')
+        .split(/[\n, ]+/)
+        .map(v => parseFloat(v.trim()))
+        .filter(v => !isNaN(v));
+    }
+
+    // Hàm tính toán công cho các phần Ano và Review
+    function buildTasks(objs, type, calcFn) {
+      return objs.map(obj => ({
+        type,
+        obj,
+        work: calcFn(obj)
+      }));
+    }
+
+    // Hàm tạo các tổ hợp task
+    function getCombos(arr, maxItems = 11) {
+      const results = [];
+      const recur = (start, combo) => {
+        if (combo.length > 0 && combo.length <= maxItems) results.push([...combo]);
+        if (combo.length === maxItems) return;
+        for (let i = start; i < arr.length; i++) {
+          combo.push(arr[i]);
+          recur(i + 1, combo);
+          combo.pop();
         }
+      };
+      recur(0, []);
+      return results;
+    }
 
-        // Tạo tags từ input
-        function createTagsFromInput(inputId, tagsContainerId) {
-            const input = document.getElementById(inputId);
-            const container = document.getElementById(tagsContainerId);
-            container.innerHTML = '';
+    // Hàm tìm tổ hợp tốt nhất gần với target (target: số công cần lấy)
+    function findBestCombo(tasks, target, maxItems = 9, tolerance = 0.3) {
+      let best = [];
+      let bestSum = Infinity;
 
-            const values = input.value
-                .split(/[\n, ]+/)
-                .map(v => v.trim())
-                .filter(v => v !== '' && !isNaN(v));
+      const combos = getCombos(tasks, maxItems);
+      for (const combo of combos) {
+        const sum = combo.reduce((acc, t) => acc + t.work, 0);
 
-            values.forEach((val, index) => {
-                const tag = document.createElement('div');
-                tag.className = 'tag';
-
-                const text = document.createElement('span');
-                text.textContent = val;
-
-                const close = document.createElement('span');
-                close.innerHTML = '×';
-                close.className = 'tag-remove';
-                close.onclick = () => {
-                    // Xoá giá trị từ textarea
-                    const currentValues = input.value
-                        .split(/[\n, ]+/)
-                        .map(v => v.trim())
-                        .filter(v => v !== '');
-                    currentValues.splice(index, 1);
-                    input.value = currentValues.join('\n');
-                    createTagsFromInput(inputId, tagsContainerId);
-                };
-
-                tag.appendChild(text);
-                tag.appendChild(close);
-                container.appendChild(tag);
-            });
+        // Kiểm tra sự chênh lệch của tổng công so với target trong phạm vi tolerance
+        if (sum >= target - tolerance && sum <= target + tolerance) {
+          // Chọn tổ hợp có tổng công gần với target nhất
+          if (Math.abs(sum - target) < Math.abs(bestSum - target)) {
+            best = combo;
+            bestSum = sum;
+          }
         }
+      }
 
-        // Hàm tìm tasks phù hợp
-        function getNeededTasks() {
+      // Nếu không có tổ hợp nào đủ công, trả kết quả rỗng
+      if (best.length === 0) {
+        return { selected: [], sum: 0 };
+      }
 
-            const target = parseFloat(document.getElementById('targetWork').value || '0');
-            // Hiện thông báo
-            document.getElementById("noticeText").classList.remove("hidden");
-            if (!target || target <= 0) {
-                alert('Vui lòng nhập số công cần lấy hợp lệ.');
-                return;
-            }
-            const getValues = id => document.getElementById(id).value
-                .split(/[\n, ]+/)
-                .map(v => parseFloat(v.trim()))
-                .filter(v => !isNaN(v));
+      return { selected: best, sum: bestSum };
+    }
 
-            const anoObjs = getValues('anoInput');
-            const reviewObjs = getValues('reviewInput');
+    // Hàm render kết quả ra giao diện
+    function renderResult(result, containerId) {
+      const container = document.getElementById(containerId);
 
-            if (anoObjs.length === 0 && reviewObjs.length === 0) {
-                alert('Vui lòng nhập ít nhất một obj Ano hoặc Review.');
-                return;
-            }
+      if (!container) return;
+      container.innerHTML = "";
 
-            const calcAnoWork = obj => obj / 700 + obj / 3500;
-            const calcReviewWork = obj => obj / 1750;
+      if (result.selected.length === 0) {
+        container.innerHTML = `<div class="text-red-600">Không tìm được tổ hợp phù hợp.</div>`;
+        return;
+      }
 
-            // Tìm tổ hợp task tốt nhất
-            function findBestCombo(objs, calcWorkFn, type, maxItems = 6) {
-                const tasks = objs.map(obj => ({
-                    type,
-                    obj,
-                    work: calcWorkFn(obj)
-                }));
+      result.selected.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "result-item flex justify-between";
+        div.innerHTML = `${item.type}: ${item.obj} → <strong>${item.work.toFixed(2)} công</strong>`;
+        container.appendChild(div);
+      });
 
-                let bestCombo = [];
-                let bestDiff = Infinity;
-                let bestSum = 0;
+      const sumDiv = document.createElement("div");
+      sumDiv.className = "text-right font-bold mt-2";
+      sumDiv.textContent = `Tổng: ${result.sum.toFixed(2)} công`;
+      container.appendChild(sumDiv);
+    }
 
-                // Tìm tổ hợp
-                const allCombos = (arr, maxLen) => {
-                    const res = [];
-                    const generate = (start, combo) => {
-                        if (combo.length > 0 && combo.length <= maxLen) res.push([...combo]);
-                        if (combo.length === maxLen) return;
-                        for (let i = start; i < arr.length; i++) {
-                            combo.push(arr[i]);
-                            generate(i + 1, combo);
-                            combo.pop();
-                        }
-                    };
-                    generate(0, []);
-                    return res;
-                };
-
-                const combos = allCombos(tasks, maxItems);
-                for (const combo of combos) {
-                    const sum = combo.reduce((acc, cur) => acc + cur.work, 0);
-                    if (sum >= target && (sum - target < bestDiff)) {
-                        bestCombo = combo;
-                        bestDiff = sum - target;
-                        bestSum = sum;
-                    }
-                }
-
-                return { selected: bestCombo, sum: bestSum };
-            }
-
-            // Tính toán
-            const anoResult = findBestCombo(anoObjs, calcAnoWork, 'Ano');
-            console.log(anoResult);
-
-            const reviewResult = findBestCombo(reviewObjs, calcReviewWork, 'Review');
-            console.log(reviewResult);
+    function showGlobalLoading(isLoading) {
+      const spinner = document.getElementById('globalLoading');
+      if (spinner) {
+        spinner.classList.toggle('hidden', !isLoading);
+      }
+    }
 
 
-            // Tính toán kết hợp cả Ano và Review
-            const combinedResult = findBestCombo(
-                [...anoObjs.map(o => ({ val: o, t: 'Ano' })), ...reviewObjs.map(o => ({ val: o, t: 'Review' }))],
-                obj => obj.t === 'Ano' ? calcAnoWork(obj.val) : calcReviewWork(obj.val),
-                '',
-                6
-            );
+    // Hàm tính toán công cho các phần Ano và Review
+    function getNeededTasks(prefix, calcAnoWork, calcReviewWork) {
+      const targetId = 'targetWork' + prefix;
+      const anoInputId = 'anoInput' + prefix;
+      const reviewInputId = 'reviewInput' + prefix;
+      const anoResultId = 'anoResult' + prefix;
+      const reviewResultId = 'reviewResult' + prefix;
+      const combinedResultId = 'combinedResult' + prefix;
+      const noticeId = 'noticeText' + prefix;
 
-            console.log(combinedResult);
+      // Lấy giá trị công cần lấy từ ô input
+      const target = parseFloat(document.getElementById(targetId)?.value || '0');
+      if (isNaN(target) || target <= 0) {
+        alert(`Vui lòng nhập số công cần lấy hợp lệ cho ${prefix || 'ALT'}`);
+        return;
+      }
+
+      const anoObjs = parseInput(anoInputId);
+      const reviewObjs = parseInput(reviewInputId);
+      // Tạo các task cho Ano và Review
+      const anoTasks = buildTasks(anoObjs, "Ano", calcAnoWork);
+      const reviewTasks = buildTasks(reviewObjs, "Review", calcReviewWork);
+      const combinedTasks = [...anoTasks, ...reviewTasks];
+
+      // Tìm các tổ hợp phù hợp
+      const anoResult = findBestCombo(anoTasks, target);
+      const reviewResult = findBestCombo(reviewTasks, target);
+      const combinedResult = findBestCombo(combinedTasks, target);
+      // Hiển thị thông báo
+      document.getElementById(noticeId)?.classList.remove("hidden");
+
+      renderResult(anoResult, anoResultId);
+      renderResult(reviewResult, reviewResultId);
+      renderResult(combinedResult, combinedResultId);
+      // Cuộn đến phần kết quả (dành cho REV)
+      if (prefix === 'Rev') {
+        document.getElementById('combinedResultRev')?.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Hoặc nếu bạn dùng cho ALT
+      if (prefix === '') {
+        document.getElementById('combinedResult')?.scrollIntoView({ behavior: 'smooth' });
+      }
+
+    }
+
+    // Hàm xử lý cho chế độ ALT
+    async function getNeededTasksALT() {
+    //   showGlobalLoading(true);   // trước khi xử lý
+      await new Promise(resolve => setTimeout(resolve, 100)); // delay nhẹ để loading hiển thị
+      getNeededTasks('',  // prefix = ''
+        obj => obj / 700 + obj / 3500,
+        obj => obj / 1750
+      );
+    //   showGlobalLoading(false);  // sau khi xử lý xong
+    }
+
+    // Hàm xử lý cho chế độ REVISION
+    async function getNeededTasksREV() {
+    //   showGlobalLoading(true);   // trước khi xử lý
+      await new Promise(resolve => setTimeout(resolve, 100)); // delay nhẹ để loading hiển thị
+      getNeededTasks('Rev',  // prefix = 'Rev'
+        obj => obj / 1200 + obj / 6000,
+        obj => obj / 3000
+      );
+    //   showGlobalLoading(false);  // sau khi xử lý xong
+    }
+
+    // Bắt sự kiện click cho button REVISION
+    document.getElementById('btnREV').onclick = function () {
+      getNeededTasksREV();
+    };
 
 
-            // Hiển thị kết quả
-            function renderResult(arr, containerId, sum) {
-                const container = document.getElementById(containerId);
-                container.innerHTML = ''; // Clear cũ nếu có
-
-                if (arr.length === 0) {
-                    const noResult = document.createElement('div');
-                    noResult.className = 'result-item';
-                    noResult.textContent = 'Không tìm được task phù hợp.';
-                    container.appendChild(noResult);
-                    return;
-                }
-
-                arr.forEach(item => {
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item flex items-center justify-between';
-
-                    const type = item.t || item.type || item.obj?.t || '';
-                    let val = item.obj ?? item.val ?? '';
-                    if (typeof val === 'object') {
-                        val = val.val ?? JSON.stringify(val);
-                    }
 
 
-                    console.log('Item:', item);
 
+    // Khởi tạo ứng dụng
+    function init() {
+      // Hiển thị tháng hiện tại
+      document.getElementById("currentMonthText").textContent = APP_DATA.state.currentMonth;
 
-                    const work = item.work ?? (type === 'Ano' ? calcAnoWork(val) : calcReviewWork(val));
+      // Khởi tạo UI
+      initAnimatedBackground();
+      initFlatpickr();
+      initEventListeners();
+      addOTStyles();
+      // Tính toán ban đầu
+      updateCalculations();
+    }
 
-                    resultItem.innerHTML = `
-      <div>
-        <i class="fas ${type === 'Ano' ? 'fa-code-branch' : 'fa-check-square'} text-primary mr-2"></i>
-        <span class="font-bold">${type}</span> - ${val} obj
-      </div>
-      <div class="text-success">${(+work).toFixed(3)} công</div>
-    `;
-
-                    container.appendChild(resultItem);
-                });
-
-                const totalDiv = document.createElement('div');
-                totalDiv.className = 'result-total';
-                totalDiv.innerHTML = `
-          <i class="fas fa-calculator"></i>
-          Tổng công: <span class="text-primary font-bold">${sum.toFixed(3)} công</span>
-        `;
-                container.appendChild(totalDiv);
-            }
-
-            renderResult(anoResult.selected, 'anoResult', anoResult.sum);
-            renderResult(reviewResult.selected, 'reviewResult', reviewResult.sum);
-            renderResult(combinedResult.selected, 'combinedResult', combinedResult.sum);
-
-        }
-
-        // Khởi tạo ứng dụng
-        function init() {
-            // Hiển thị tháng hiện tại
-            document.getElementById("currentMonthText").textContent = APP_DATA.state.currentMonth;
-
-            // Khởi tạo UI
-            initAnimatedBackground();
-            initFlatpickr();
-            initEventListeners();
-            addOTStyles();
-
-            // Tính toán ban đầu
-            updateCalculations();
-        }
-
-        // Tạo trạng thái trống ban đầu cho OT
-        const tableWrapper = document.querySelector(".ot-table-wrapper");
-        if (tableWrapper) {
-            tableWrapper.innerHTML = `<div class="empty-ot-state" style="margin-top: 10px">
+    // Tạo trạng thái trống ban đầu cho OT
+    const tableWrapper = document.querySelector(".ot-table-wrapper");
+    if (tableWrapper) {
+      tableWrapper.innerHTML = `<div class="empty-ot-state" style="margin-top: 10px">
         <i class="fas fa-pen-to-square"></i>
         <span>TỔNG NHẬN sẽ trừ đi 530k tiền bảo hiểm</span>
       </div>`;
-        }
+    }
 
-        // Khởi động ứng dụng
-        document.addEventListener("DOMContentLoaded", init);
+    // Khởi động ứng dụng
+    document.addEventListener("DOMContentLoaded", init);
 
-        //Check User
-        async function sendVisitorInfoToDiscord() {
-            const now = new Date().toLocaleString('vi-VN');
-            const ua = navigator.userAgent;
-            const lang = navigator.language;
-            const screenSize = `${window.innerWidth}x${window.innerHeight}`;
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const platform = navigator.platform;
-            const referrer = document.referrer || 'Truy cập trực tiếp';
-            const url = window.location.href;
+    //Check User
+    async function sendVisitorInfoToDiscord() {
+      const now = new Date().toLocaleString('vi-VN');
+      const ua = navigator.userAgent;
+      const lang = navigator.language;
+      const screenSize = `${window.innerWidth}x${window.innerHeight}`;
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const platform = navigator.platform;
+      const referrer = document.referrer || 'Truy cập trực tiếp';
+      const url = window.location.href;
 
-            let ip = 'Không lấy được IP';
-            let geo = '';
+      let ip = 'Không lấy được IP';
+      let geo = '';
 
-            try {
-            const res = await fetch('https://ipinfo.io/json?token=25f868daff1ee3'); // Đăng ký free token tại ipinfo.io
-            const data = await res.json();
-            ip = data.ip;
-            geo = `${data.city}, ${data.region}, ${data.country}`;
-            const blockedIPs = ['117.0.205.33', '58.186.90.231'];
-            console.log(blockedIPs);
-            
-            if (blockedIPs.includes(ip)) {
-            console.log(`⛔️ Truy cập từ IP bị chặn (${ip}) – không gửi về Discord`);
-            return;
-            }
-            } catch (e) {
-            console.warn("Không thể lấy IP/location:", e);
-            }
+      try {
+        const res = await fetch('https://ipinfo.io/json?token=25f868daff1ee3'); // Đăng ký free token tại ipinfo.io
+        const data = await res.json();
+        ip = data.ip;
+        geo = `${data.city}, ${data.region}, ${data.country}`;
 
-            const message = `**📥 TRUY CẬP MỚI TRÊN WEBSITE**
+      } catch (e) {
+        console.warn("Không thể lấy IP/location:", e);
+      }
+
+      const message = `**📥 TRUY CẬP MỚI TRÊN WEBSITE**
         🌐 URL: ${url}
         👀 Referrer: ${referrer}
         🕓 Thời gian: ${now}
@@ -1281,15 +1751,56 @@
         🔌 IP: ${ip}
         📍 Vị trí: ${geo}`;
 
-            fetch('https://discord.com/api/webhooks/1364874374414467193/CHkbC-q-bnOfZVDj7VsvVOJg7bv5eaIyEPQcKJU3dEVeheeS49LMChOBSVukLLok_lYg', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: message })
-            });
-  }
+      fetch('https://discord.com/api/webhooks/1364874374414467193/CHkbC-q-bnOfZVDj7VsvVOJg7bv5eaIyEPQcKJU3dEVeheeS49LMChOBSVukLLok_lYg', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: message })
+      });
+    }
 
-  sendVisitorInfoToDiscord();
-    </script>
+    const input = document.getElementById('targetWork');
+
+    function checkStopShake() {
+      // Nếu có giá trị hoặc đang focus chuột thì dừng lắc
+      if (input.value.trim() !== '' || input === document.activeElement) {
+        input.classList.remove('shaking');
+      } else {
+        input.classList.add('shaking');
+      }
+    }
+
+    // Gắn sự kiện khi focus (trỏ chuột vào) hoặc nhập số
+    input.addEventListener('focus', checkStopShake);
+    input.addEventListener('input', checkStopShake);
+    input.addEventListener('blur', checkStopShake); // Khi rời chuột ra thì kiểm tra lại
+
+    const spans = document.querySelectorAll("#focus-text span");
+    const frame = document.querySelector(".focus-frame");
+    const parent = document.querySelector("#focus-text");
+
+    let index = 0;
+    const duration = 2000;
+
+    function updateFocus() {
+      spans.forEach((el, i) => {
+        el.classList.toggle("active", i === index);
+      });
+
+      const rect = spans[index].getBoundingClientRect();
+      const parentRect = parent.getBoundingClientRect();
+
+      frame.style.transform = `translate(${rect.left - parentRect.left}px, ${rect.top - parentRect.top}px)`;
+      frame.style.width = `${rect.width}px`;
+      frame.style.height = `${rect.height}px`;
+
+      index = (index + 1) % spans.length;
+    }
+
+    updateFocus();
+    setInterval(updateFocus, duration);
+
+    sendVisitorInfoToDiscord();
+  </script>
 </body>
 
 </html>
