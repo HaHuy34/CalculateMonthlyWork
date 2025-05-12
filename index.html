@@ -1660,24 +1660,24 @@
 
     // Hàm xử lý cho chế độ ALT
     async function getNeededTasksALT() {
-    //   showGlobalLoading(true);   // trước khi xử lý
+      showGlobalLoading(true);   // trước khi xử lý
       await new Promise(resolve => setTimeout(resolve, 100)); // delay nhẹ để loading hiển thị
       getNeededTasks('',  // prefix = ''
         obj => obj / 700 + obj / 3500,
         obj => obj / 1750
       );
-    //   showGlobalLoading(false);  // sau khi xử lý xong
+      showGlobalLoading(false);  // sau khi xử lý xong
     }
 
     // Hàm xử lý cho chế độ REVISION
     async function getNeededTasksREV() {
-    //   showGlobalLoading(true);   // trước khi xử lý
+      showGlobalLoading(true);   // trước khi xử lý
       await new Promise(resolve => setTimeout(resolve, 100)); // delay nhẹ để loading hiển thị
       getNeededTasks('Rev',  // prefix = 'Rev'
         obj => obj / 1200 + obj / 6000,
         obj => obj / 3000
       );
-    //   showGlobalLoading(false);  // sau khi xử lý xong
+      showGlobalLoading(false);  // sau khi xử lý xong
     }
 
     // Bắt sự kiện click cho button REVISION
