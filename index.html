@@ -142,11 +142,22 @@
 
         .app-header {
             text-align: center;
-            position: relative;
+            position: fixed;
+            display: flex;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 9999999999999999;
+            box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
-            border-radius: 0 0 2rem 2rem;
-            box-shadow: var(--shadow);
+            border-radius: 0 0 1.5rem 1.5rem;
+        }
+
+        .app-header img {
+        height: 115px;
+        border-bottom-left-radius: ;
+
         }
 
         .header-title {
@@ -651,7 +662,8 @@
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(3, 1fr);
             gap: 8px;
-            background-color: #000000,
+            background-color: #000000;
+            margin-top: 110px;
         }
 
 
@@ -969,6 +981,7 @@
     <div class="animated-background" id="animated-bg"></div>
 
     <header class="app-header">
+        <img src="./HuyHV1.png" alt="" style="border-bottom-left-radius: 1.2rem;">
         <div class="container">
             <h1 class="header-title" id="focus-text">
                 <span>Bảng Tính</span>
@@ -984,6 +997,7 @@
 
             <p class="header-subtitle">Tháng <span id="currentMonthText" class="font-bold"></span></p>
         </div>
+        <img src="./HuyHV1.png" alt="" style="border-bottom-right-radius: 1.2rem;">
     </header>
 
     <div class="container">
